@@ -1,0 +1,26 @@
+CREATE DATABASE tourism
+    WITH 
+    OWNER = postgres;
+	
+CREATE TABLE IF NOT EXISTS tourist_packages
+(
+    id INTEGER PRIMARY KEY ,
+    name VARCHAR(200) NOT NULL UNIQUE,
+	direction VARCHAR(200),
+	date_start DATE,
+	date_end DATE,
+	date_of_departure DATE
+);
+CREATE SEQUENCE packages_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE IF NOT EXISTS clients
+(
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(200) NOT NULL UNIQUE,
+    age INTEGER,
+	date_of_birth DATE,
+	tourist_package_id INTEGER NOT NULL,
+	CONSTRAINT client_package_id_fk
+	FOREIGN KEY (tourist_package_id) REFERENCES tourist_packages (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE SEQUENCE clients_id_seq START WITH 1 INCREMENT BY 1;
